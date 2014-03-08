@@ -1,39 +1,70 @@
 package cts
 
-import(
+import (
 	"testing"
 )
 
-func TestAllPlatforms(t *testing.T){
-	c := New("http://www.corvallistransit.com/")
+const baseURL = "http://www.corvallistransit.com/"
 
-	p,err := c.Platforms()
+func TestAllPlatforms(t *testing.T) {
+	c := New(baseURL)
 
-	if err != nil || len(p) == 0{
-		t.Error(err,p)
+	p, err := c.Platforms()
+
+	if err != nil || len(p) == 0 {
+		t.Error(err, p)
 	}
 
 }
 
-func TestAllPlatformGroups(t *testing.T){
-	c := New("http://www.corvallistransit.com/")
+func TestAllPlatformsEtas(t *testing.T) {
+	c := New(baseURL)
 
-	p,err := c.PlatformGroups()
+	p, err := c.Platforms()
 
-	if err != nil || len(p) == 0{
-		t.Error(err,p)
+	if err != nil || len(p) == 0 {
+		t.Error(err, p)
+	}
+
+	for _, platform := range p {
+		_, err := c.ETA(platform)
+
+		if err != nil {
+			t.Error(err, platform)
+		}
 	}
 
 }
 
-func TestMasterSchedule(t *testing.T){
-	c := New("http://www.corvallistransit.com/")
+func TestAllPlatformGroups(t *testing.T) {
+	c := New(baseURL)
 
-	s,err := c.MasterSchedules()
+	p, err := c.PlatformGroups()
 
-	if err != nil || s == nil{
-		t.Error(err,s)
+	if err != nil || len(p) == 0 {
+		t.Error(err, p)
 	}
 
-	t.Log(s)
+}
+
+func TestMasterSchedule(t *testing.T) {
+	c := New(baseURL)
+
+	s, err := c.MasterSchedules()
+
+	if err != nil || s == nil {
+		t.Error(err, s)
+	}
+
+}
+
+func TestScheduleDetail(t *testing.T) {
+	c := New(baseURL)
+
+	s, err := c.ServiceSchedules("Weekday")
+
+	if err != nil || s == nil {
+		t.Error(err, s)
+	}
+
 }
