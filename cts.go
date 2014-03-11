@@ -5,17 +5,21 @@ import (
 	"encoding/xml"
 	"errors"
 	"io/ioutil"
-	"net/http"
 	"net/url"
+
+	"appengine"
+	"appengine/urlfetch"
 )
 
 type CTS struct {
 	baseURL string
+	context appengine.Context
 }
 
-func New(baseURL string) *CTS {
+func New(context appengine.Context, baseURL string) *CTS {
 	c := new(CTS)
 	c.baseURL = baseURL
+	c.context = context
 
 	return c
 }
@@ -146,7 +150,8 @@ func (c *CTS) xmlResponseForMethod(method string, options map[string]string) ([]
 	params.Set("Name", method)
 
 	//Perform GET request
-	resp, err := http.Get(c.baseURL + "rtt/public/utility/file.aspx?" + params.Encode())
+	client := urlfetch.Client(c.context)
+	resp, err := client.Get(c.baseURL + "rtt/public/utility/file.aspx?" + params.Encode())
 	if err != nil {
 		return nil, err
 	}
