@@ -1,26 +1,30 @@
-// +build !appengine
+// +build appengine
 // Connexionz Transportation System
 package cts
 
 import (
 	"io/ioutil"
-	"net/http"
 	"net/url"
+
+	"appengine"
+	"appengine/urlfetch" //Need to use this in-place of http.Get()
 )
 
 type CTS struct {
 	baseURL string
+	context appengine.Context
 }
 
-func New(baseURL string) *CTS {
+func New(context appengine.Context, baseURL string) *CTS {
 	c := new(CTS)
 	c.baseURL = baseURL
+	c.context = context
 
 	return c
 }
 
 //
-//Convinence methods
+//Convinence method
 //
 
 func (c *CTS) xmlResponseForMethod(method string, options map[string]string) ([]byte, error) {
@@ -34,7 +38,8 @@ func (c *CTS) xmlResponseForMethod(method string, options map[string]string) ([]
 	params.Set("Name", method)
 
 	//Perform GET request
-	resp, err := http.Get(c.baseURL + "rtt/public/utility/file.aspx?" + params.Encode())
+	client := urlfetch.Client(c.context)
+	resp, err := client.Get(c.baseURL + "rtt/public/utility/file.aspx?" + params.Encode())
 	if err != nil {
 		return nil, err
 	}
