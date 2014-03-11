@@ -1,9 +1,7 @@
 //Connexionz Transit System
 package cts
 
-import (
-	"testing"
-)
+import "testing"
 
 const baseURL = "http://www.corvallistransit.com/"
 
@@ -15,7 +13,6 @@ func TestAllPlatforms(t *testing.T) {
 	if err != nil || len(p) == 0 {
 		t.Error(err, p)
 	}
-
 }
 
 func TestAllPlatformsEtas(t *testing.T) {
@@ -33,6 +30,16 @@ func TestAllPlatformsEtas(t *testing.T) {
 		if err != nil {
 			t.Error(err, platform)
 		}
+	}
+
+}
+
+func TestPatterns(t *testing.T) {
+	c := New(baseURL)
+	r, err := c.Patterns()
+
+	if err != nil || len(r) == 0 {
+		t.Error(err, r)
 	}
 
 }
