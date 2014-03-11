@@ -1,8 +1,13 @@
 go-connexionz
 =============
 
-A go wrapper for connexionz apis
+A go wrapper for Connexionz APIs
 
+Two known examples are :
+1. [Corvallis, OR](http://www.corvallistransit.com/)
+2. [San Clarita, CA](http://businfo.santa-clarita.com/)
+
+__You can use these two URLS as base URLS__
 
 # Documentation
 
