@@ -73,8 +73,8 @@ func (c *CTS) Patterns() ([]*Route, error) {
 			val2, _ := strconv.ParseFloat(elems[i+1], 64)
 
 			coord := &Coordinate{
-				Latitude:  val1,
-				Longitude: val2,
+				Latitude:  val2,
+				Longitude: val1,
 			}
 
 			p.Polyline[(i-42)/2] = coord
