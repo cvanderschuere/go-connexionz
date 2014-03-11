@@ -96,8 +96,8 @@ type Pattern struct {
 	Direction string `xml: "Direction"`
 	Schedule  string `xml: "Schedule"`
 
-	Mid string `xml: "Mid,chardata"`
-	Mif string `xml: "Mif,chardata"`
+	Mid string `xml: "Mid,chardata" json:"-"`
+	Mif string `xml: "Mif,chardata" json:"-"`
 
 	Polyline  []*Coordinate
 	Platforms []*Platform `xml: "Platform"`
