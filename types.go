@@ -90,15 +90,18 @@ type PatternQuery struct {
 }
 
 type Pattern struct {
-	Tag       string `xml: "RouteTag"`
-	Name      string `xml: "Name"`
-	Length    string `xml: "Length"`
-	Direction string `xml: "Direction"`
-	Schedule  string `xml: "Schedule"`
+	Tag       string `xml:"RouteTag,attr"`
+	Name      string `xml:"Name,attr"`
+	Length    string `xml:"Length,attr"`
+	Direction string `xml:"Direction,attr"`
+	Schedule  string `xml:"Schedule,attr"`
 
-	Mid string `xml:"Mid,chardata" json:"-"`
-	Mif string `xml:"Mif,chardata" json:"-"`
+	//Block data (Is parsed into more usable form)
+	Mid string `xml:"Mid" json:"-"`
+	Mif string `xml:"Mif" json:"-"`
 
-	Polyline  []*Coordinate
-	Platforms []*Platform `xml: "Platform"`
+	//Encoded according to https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+	Polyline string
+
+	Platforms []*Platform `xml:"Platform"`
 }

@@ -2,6 +2,7 @@
 package cts
 
 import "testing"
+import "fmt"
 
 const baseURL = "http://www.corvallistransit.com/"
 
@@ -41,6 +42,8 @@ func TestPatterns(t *testing.T) {
 	if err != nil || len(r) == 0 {
 		t.Error(err, r)
 	}
+
+	fmt.Println(r[0].Destination[0].Patterns[0].Polyline)
 
 }
 

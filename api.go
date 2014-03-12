@@ -5,6 +5,8 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+
+	"github.com/twpayne/gopolyline/polyline"
 )
 
 //
@@ -67,18 +69,16 @@ func (c *CTS) Patterns() ([]*Route, error) {
 		p := r.Destination[0].Patterns[0]
 		elems := strings.Fields(p.Mif)
 
-		p.Polyline = make([]*Coordinate, (len(elems)-44)/2)
+		points := make([]float64, len(elems)-44)
 		for i := 42; i < len(elems)-2; i += 2 {
-			val1, _ := strconv.ParseFloat(elems[i], 64)
-			val2, _ := strconv.ParseFloat(elems[i+1], 64)
+			lon, _ := strconv.ParseFloat(elems[i], 64)
+			lat, _ := strconv.ParseFloat(elems[i+1], 64)
 
-			coord := &Coordinate{
-				Latitude:  val2,
-				Longitude: val1,
-			}
-
-			p.Polyline[(i-42)/2] = coord
+			points[i-42] = lat
+			points[(i+1)-42] = lon
 		}
+
+		p.Polyline = polyline.Encode(points, 2)
 
 	}
 
