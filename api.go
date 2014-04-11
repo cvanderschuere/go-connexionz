@@ -87,13 +87,13 @@ func (c *CTS) Patterns() ([]*Route, error) {
 
 //Find the Estimated Time of Arrivals (ETA) for the given platform
 func (c *CTS) ETA(p *Platform) ([]*Route, error) {
-	if p.Tag == "" && p.Number == "" {
+	if p.Tag <= 0 && p.Number <= 0 {
 		return nil, errors.New("Need a valid platform tag or platform number")
 	}
 
 	resp, err := c.xmlResponseForMethod("RoutePositionET.xml", map[string]string{
-		"PlatformNo":  p.Number,
-		"PlatformTag": p.Tag,
+		"PlatformNo":  strconv.FormatInt(p.Number, 10),
+		"PlatformTag": strconv.FormatInt(p.Tag, 10),
 	})
 
 	if err != nil {

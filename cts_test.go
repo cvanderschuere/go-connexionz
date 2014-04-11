@@ -11,6 +11,8 @@ func TestAllPlatforms(t *testing.T) {
 
 	p, err := c.Platforms()
 
+	fmt.Println(p[0])
+
 	if err != nil || len(p) == 0 {
 		t.Error(err, p)
 	}
@@ -43,8 +45,7 @@ func TestPatterns(t *testing.T) {
 		t.Error(err, r)
 	}
 
-	fmt.Println(r[0].Destination[0].Patterns[0].Polyline)
-
+	//fmt.Println(r[0].Destination[0].Patterns[0].Polyline)
 }
 
 func TestAllPlatformGroups(t *testing.T) {

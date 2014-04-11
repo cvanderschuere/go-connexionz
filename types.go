@@ -15,10 +15,10 @@ type PlatformQuery struct {
 }
 
 type Platform struct {
-	Tag      string      `xml:"PlatformTag,attr"`
-	Number   string      `xml:"PlatformNo,attr"`
+	Tag      int64       `xml:"PlatformTag,attr"`
+	Number   int64       `xml:"PlatformNo,attr"`
 	Name     string      `xml:"Name,attr"`
-	Bearing  string      `xml:"BearingToRoad,attr"`
+	Bearing  float64     `xml:"BearingToRoad,attr"`
 	RoadName string      `xml:"RoadName,attr"`
 	Location *Coordinate `xml:"Position"`
 
