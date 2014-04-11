@@ -52,7 +52,7 @@ New(baseURL string) *CTS
 
   //Route ETAs
   platform := &cts.Platform{
-		Tag: "360", //Must give either tag or number
+		Tag: 360, //Must give either tag or number
 	}
   r, err := c.ETA(platform)
 
