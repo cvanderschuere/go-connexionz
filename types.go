@@ -78,7 +78,7 @@ type Destination struct {
 	Patterns []*Pattern `xml:"Pattern"`
 }
 type Trip struct {
-	ETA string `xml:"ETA,attr"`
+	ETA int `xml:"ETA,attr"` // Time in minutes
 }
 type Service struct {
 	Name string `xml:"Name,attr"`

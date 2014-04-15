@@ -45,7 +45,7 @@ func TestPatterns(t *testing.T) {
 		t.Error(err, r)
 	}
 
-	//fmt.Println(r[0].Destination[0].Patterns[0].Polyline)
+	fmt.Println(r[0])
 }
 
 func TestAllPlatformGroups(t *testing.T) {
