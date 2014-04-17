@@ -91,10 +91,15 @@ func (c *CTS) ETA(p *Platform) ([]*Route, error) {
 		return nil, errors.New("Need a valid platform tag or platform number")
 	}
 
-	resp, err := c.xmlResponseForMethod("RoutePositionET.xml", map[string]string{
-		"PlatformNo":  strconv.FormatInt(p.Number, 10),
-		"PlatformTag": strconv.FormatInt(p.Tag, 10),
-	})
+	// Make map of information -- platform number before tag
+	param := make(map[string]string)
+	if p.Number != 0 {
+		param["PlatformNo"] = strconv.FormatInt(p.Number, 10)
+	} else {
+		param["PlatformTag"] = strconv.FormatInt(p.Tag, 10)
+	}
+
+	resp, err := c.xmlResponseForMethod("RoutePositionET.xml", param)
 
 	if err != nil {
 		return nil, err
